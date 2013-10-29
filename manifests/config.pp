@@ -28,4 +28,13 @@ class crowd::config {
     source => 'puppet:///modules/crowd/setenv.sh',
   }
 
+  file { 'crowd-init.properties':
+    ensure  => present,
+    path    => "/opt/atlassian-crowd-${crowd_version}/crowd-webapp/WEB-INF/classes/crowd-init.properties",
+    mode    => '0755',
+    owner   => root,
+    group   => root,
+    content => template('crowd/crowd-init.properties.erb'),
+  }
+
 }

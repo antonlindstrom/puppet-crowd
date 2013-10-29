@@ -7,4 +7,5 @@ describe 'crowd::config' do
   it { should contain_user('crowd') }
   it { should contain_file('/home/crowd') }
   it { should contain_file('setenv.sh') }
+  it { should contain_file('crowd-init.properties') }
 end
