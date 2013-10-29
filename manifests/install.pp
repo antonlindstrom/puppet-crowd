@@ -24,7 +24,7 @@ class crowd::install {
     cwd       => '/opt',
     path      => '/usr/bin/:/bin/',
     logoutput => true,
-    creates   => "/opt/atlassian-crowd-${crowd_version}-standalone",
+    creates   => "/opt/atlassian-crowd-${crowd_version}",
     require   => Wget::Fetch['download_crowd'],
   }
 
