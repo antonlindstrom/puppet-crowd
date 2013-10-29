@@ -24,7 +24,7 @@ export JVM_MAXIMUM_MEMORY="<%= scope.lookupvar('crowd::maximum_memory') %>"
 export CROWD_MAX_PERM_SIZE="<%= scope.lookupvar('crowd::permgen_size') %>"
 export CATALINA_PID=$PIDFILE
 
-export JVM_OPTS="<%= scope.lookupvar('crowd::jvm_options') %>"
+export JAVA_OPTS="<%= scope.lookupvar('crowd::jvm_options') %>"
 export CROWD_HOME="<%= scope.lookupvar('crowd::params::home') %>"
 
 start () {
