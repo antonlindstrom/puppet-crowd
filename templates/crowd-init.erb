@@ -16,12 +16,13 @@ NAME="crowd"
 CROWD_PATH="/opt/atlassian-crowd-<%= scope.lookupvar('crowd::params::version') %>"
 START_SCRIPT="${CROWD_PATH}/start_crowd.sh"
 STOP_SCRIPT="${CROWD_PATH}/stop_crowd.sh"
-PIDFILE="${CROWD_PATH}/work/catalina.pid"
+PIDFILE="${CROWD_PATH}/apache-tomcat/work/catalina.pid"
 CWD=`pwd`
 
 export JVM_MINIMUM_MEMORY="<%= scope.lookupvar('crowd::minimum_memory') %>"
 export JVM_MAXIMUM_MEMORY="<%= scope.lookupvar('crowd::maximum_memory') %>"
 export CROWD_MAX_PERM_SIZE="<%= scope.lookupvar('crowd::permgen_size') %>"
+export CATALINA_PID=$PIDFILE
 
 export JVM_OPTS="<%= scope.lookupvar('crowd::jvm_options') %>"
 export CROWD_HOME="<%= scope.lookupvar('crowd::params::home') %>"
@@ -38,6 +39,7 @@ start () {
 stop () {
         log_daemon_msg "Stopping $NAME"
         if start-stop-daemon --stop --quiet --pidfile "$PIDFILE"; then
+                rm $PIDFILE
                 log_end_msg 0
         else
                 log_end_msg 1
