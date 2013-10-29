@@ -1,5 +1,7 @@
 # Atlassian Crowd
 
+[![Build Status](https://travis-ci.org/antonlindstrom/puppet-crowd.png)](https://travis-ci.org/antonlindstrom/puppet-crowd)
+
 Puppet module for [Atlassian Crowd](https://www.atlassian.com/software/crowd).
 
 Installs a basic Crowd standalone installation in `/opt` and starts it.
