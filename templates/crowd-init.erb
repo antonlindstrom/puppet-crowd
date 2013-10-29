@@ -13,9 +13,9 @@
 . /lib/lsb/init-functions
 
 NAME="crowd"
-CROWD_PATH="/opt/atlassian-crowd-<%= scope.lookupvar('crowd::params::version') %>-standalone"
-START_SCRIPT="${CROWD_PATH}/bin/start-crowd.sh"
-STOP_SCRIPT="${CROWD_PATH}/bin/stop-crowd.sh"
+CROWD_PATH="/opt/atlassian-crowd-<%= scope.lookupvar('crowd::params::version') %>"
+START_SCRIPT="${CROWD_PATH}/start_crowd.sh"
+STOP_SCRIPT="${CROWD_PATH}/stop_crowd.sh"
 PIDFILE="${CROWD_PATH}/work/catalina.pid"
 CWD=`pwd`
 

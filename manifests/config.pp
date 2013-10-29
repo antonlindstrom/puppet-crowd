@@ -21,7 +21,7 @@ class crowd::config {
 
   file { 'setenv.sh':
     ensure => present,
-    path   => "/opt/atlassian-crowd-${crowd_version}-standalone/bin/setenv.sh",
+    path   => "/opt/atlassian-crowd-${crowd_version}/apache-tomcat/bin/setenv.sh",
     mode   => '0755',
     owner  => root,
     group  => root,
