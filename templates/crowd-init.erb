@@ -1,0 +1,78 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:          crowd
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+NAME="crowd"
+CROWD_PATH="/opt/atlassian-crowd-<%= scope.lookupvar('crowd::params::version') %>-standalone"
+START_SCRIPT="${CROWD_PATH}/bin/start-crowd.sh"
+STOP_SCRIPT="${CROWD_PATH}/bin/stop-crowd.sh"
+PIDFILE="${CROWD_PATH}/work/catalina.pid"
+CWD=`pwd`
+
+export JVM_MINIMUM_MEMORY="<%= scope.lookupvar('crowd::minimum_memory') %>"
+export JVM_MAXIMUM_MEMORY="<%= scope.lookupvar('crowd::maximum_memory') %>"
+export CROWD_MAX_PERM_SIZE="<%= scope.lookupvar('crowd::permgen_size') %>"
+
+export JVM_OPTS="<%= scope.lookupvar('crowd::jvm_options') %>"
+export CROWD_HOME="<%= scope.lookupvar('crowd::params::home') %>"
+
+start () {
+        log_daemon_msg "Starting $NAME"
+        if start-stop-daemon --start --quiet --user crowd -d $CROWD_PATH --pidfile "$PIDFILE" --exec $START_SCRIPT; then
+                log_end_msg 0
+        else
+                log_end_msg 1
+        fi
+}
+
+stop () {
+        log_daemon_msg "Stopping $NAME"
+        if start-stop-daemon --stop --quiet --pidfile "$PIDFILE"; then
+                log_end_msg 0
+        else
+                log_end_msg 1
+        fi
+}
+
+status () {
+        status_of_proc -p $PIDFILE "" "$NAME"
+}
+
+case $1 in
+        start)
+                if status; then exit 0; fi
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        reload)
+                stop
+                sleep 2
+                start
+                ;;
+        restart)
+                stop
+                sleep 2
+                start
+                ;;
+        status)
+                status && exit 0 || exit $?
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|reload|status}"
+                exit 1
+                ;;
+esac
+
+exit 0
