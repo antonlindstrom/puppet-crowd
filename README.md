@@ -6,6 +6,8 @@ Puppet module for [Atlassian Crowd](https://www.atlassian.com/software/crowd).
 
 Installs a basic Crowd standalone installation in `/opt` and starts it.
 
+NOTE: This has never been used in production.
+
 ## Example usage
 
 Include with default parameters:
